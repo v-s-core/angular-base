@@ -1,0 +1,44 @@
+<app-page-layout>
+  <app-progress-bar *ngIf="storeService.isLoading()"></app-progress-bar>
+  <ng-container *ngIf="!storeService.isLoading()">
+<div class="container">
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <div class="row">
+        <h1>Customer Details</h1>
+    </div>
+    <div class="row">
+        <form [formGroup]="customerForm" class="example-form" (ngSubmit)="onSubmit()">
+            <mat-form-field class="example-full-width">
+              <mat-label>First Name</mat-label>
+              <input matInput placeholder="Name" formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Last Name</mat-label>
+              <input matInput placeholder="Last Name" formControlName="lastName">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Mobile</mat-label>
+              <input matInput placeholder="Mobile" formControlName="mobile">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder="email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Address</mat-label>
+              <textarea matInput placeholder="Address" formControlName="address"></textarea>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-label>Leave a comment</mat-label>
+              <textarea matInput placeholder="Ex. It makes me feel..." formControlName="comment"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" type="submit">Submit</button>
+        </form>
+    </div>
+</mat-card-content>
+</mat-card>
+    
+</div>
+</ng-container>
+</app-page-layout>
