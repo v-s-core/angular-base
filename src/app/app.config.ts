@@ -26,6 +26,7 @@ import { routes }                 from './app.routes';
 // Services
 import { AppService }             from '@services/app.service';
 import { StoreService }           from '@services/store.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export function createTranslateLoader(http : HttpClient)
 {
@@ -79,6 +80,6 @@ export const appConfig : ApplicationConfig = {
 
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     provideAnimations(),
-    provideClientHydration(),
+    provideClientHydration(), provideAnimationsAsync(),
   ]
 };

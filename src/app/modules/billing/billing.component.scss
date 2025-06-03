@@ -1,0 +1,51 @@
+.billing-form{
+    border: 4px solid black;
+}
+.title {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    color: #000080;
+    font-family:Monotype Corsiva, Times, Serif;
+    font-size: xxx-large;
+    font-weight: 600;
+}
+
+.subtitle {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    color: #555;
+    font-family: serif;
+}
+
+.invoice-title{
+    background: grey;
+    justify-content: center;
+    display: flex;
+    font-weight: 700;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-form-field {
+  width: 200px;
+}
+
+.invoice-date {
+    text-align: end;
+    // justify-content: center;
+    // display: flex;
+    // font-weight: 700;
+}
+
+.billing-table{
+    border: 5px solid black;
+}

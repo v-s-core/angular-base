@@ -15,7 +15,10 @@ export const routes : Routes = [
     path : 'customer-details', 
     loadComponent : () => import('./modules/customer-details/customer-details.component').then(m=> m.CustomerDetailsComponent),
   },
-  {path : 'customer-details', redirectTo : '/customer-details', pathMatch : 'full'},
+  { 
+    path : 'billing', 
+    loadComponent : () => import('./modules/billing/billing.component').then(m=> m.BillingComponent),
+  },{path : 'billing', redirectTo : '/billing', pathMatch : 'full'},
   {
     path          : '**',
     loadComponent : () => import('./modules/not-found/not-found.component').then(m => m.NotFoundComponent),

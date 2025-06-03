@@ -1,0 +1,210 @@
+
+<div class="container billing-form">
+    <h2 class="row title">Sri Amutha Tours & Transport Private Limited</h2>
+    <div class="row">
+    <p class="subtitle mb-0">C/O M.RAVI KAMALAM RAMASAMY NAGAR, TRICHY MAIN ROAD, VILLUPURAM - 605602</p>
+    <p class="subtitle">GST : 33ABPCS6633Q1ZI</p>
+    </div>
+<hr class="mt-0">
+<h2 class="row invoice-title">TAX INVOICE</h2>
+<div class="row">
+    <div class="col-md-4">
+        <p class="mb-0">Invoice No: <span class="invoice-number"><strong>123456</strong></span></p>
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        <p class="mb-0" class="invoice-date">Date: <strong>{{currentDate | date:'dd-MM-yyyy'}}</strong></p>
+      
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Customer Name</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Customer Address</mat-label>
+                <textarea matInput placeholder="Ex. 100 Main St"></textarea>
+            </mat-form-field>
+        </div>
+       
+        <!-- <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput placeholder="Ex. pat@example.com">
+            </mat-form-field>
+        </div> -->
+    </div>
+    <div class="col-md-6">
+         <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Customer GST</mat-label>
+                <input matInput>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Contact No</mat-label>
+                <span matTextPrefix>+91 &nbsp;</span>
+                <input type="tel" matInput placeholder="555-555-1234">
+                <mat-icon matSuffix aria-hidden="false" aria-label="Mobile" fontIcon="phone_iphone"></mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<hr>
+<h2 class="row invoice-title">TRIP DETAILS</h2>
+<div class="row">
+    <div class="col-md-3">
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>From</mat-label>
+                <mat-select>
+                    @for (food of foods; track food) {
+                    <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>To</mat-label>
+                <mat-select>
+                    @for (food of foods; track food) {
+                    <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+    <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+            <mat-label>Journey Date</mat-label>
+            <mat-date-range-input [formGroup]="campaignTwo" [rangePicker]="campaignTwoPicker"
+                [comparisonStart]="campaignOne.value.start" [comparisonEnd]="campaignOne.value.end">
+                <input matStartDate placeholder="Start date" formControlName="start">
+                <input matEndDate placeholder="End date" formControlName="end">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="campaignTwoPicker"></mat-datepicker-toggle>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-date-range-picker #campaignTwoPicker></mat-date-range-picker>
+        </mat-form-field>
+    </div>
+    <div class="col-md-3">
+        <div>
+            <mat-form-field class="example-full-width">
+                <mat-label>Number of Days</mat-label>
+                <mat-select>
+                    @for (day of days; track day) {
+                    <mat-option [value]="day.value">{{day.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+            <mat-label>Route Description</mat-label>
+            <textarea matInput placeholder="Via: Villupuram - Puducherry - .."></textarea>
+        </mat-form-field>
+    </div>
+</div>
+<hr>
+<h2 class="row invoice-title">Payment Details</h2>
+<div class="row p-3">
+<table mat-table [dataSource]="transactions" class="mat-elevation-z8 billing-table">
+  <!-- Item Column -->
+  <ng-container matColumnDef="item">
+    <th mat-header-cell *matHeaderCellDef> Item </th>
+    <td mat-cell *matCellDef="let transaction"> {{transaction.item}} </td>
+    <td mat-footer-cell *matFooterCellDef> Total </td>
+  </ng-container>
+
+  <!-- Cost Column -->
+  <ng-container matColumnDef="cost">
+    <th mat-header-cell *matHeaderCellDef> Cost </th>
+    <td mat-cell *matCellDef="let transaction"> {{transaction.cost * (1 + transaction.GST / 100) | currency}} </td>
+    <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="GST">
+    <th mat-header-cell *matHeaderCellDef> GST % </th>
+    <td mat-cell *matCellDef="let transaction"> {{transaction.GST }} </td>
+    <td mat-footer-cell *matFooterCellDef> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+</table>    
+</div>
+    <!-- <form #billingForm="ngForm" (ngSubmit)="onSubmit(billingForm)"></form> -->
+        <!-- <div>
+            <label for="from">Journey From:</label>
+            <select id="from" name="from" ngModel required>
+                <option value="" disabled selected>Select From</option>
+                <option value="CityA">City A</option>
+                <option value="CityB">City B</option>
+                <option value="CityC">City C</option>
+            </select>
+        </div>
+        <div>
+            <label for="to">Journey To:</label>
+            <select id="to" name="to" ngModel required>
+                <option value="" disabled selected>Select To</option>
+                <option value="CityA">City A</option>
+                <option value="CityB">City B</option>
+                <option value="CityC">City C</option>
+            </select>
+        </div> -->
+        <!-- <div>
+            <label for="busRent">Bus Rent:</label>
+            <input type="number" id="busRent" name="busRent" ngModel required>
+        </div>
+        <div>
+            <label for="dieselCharges">Diesel Charges:</label>
+            <input type="number" id="dieselCharges" name="dieselCharges" ngModel>
+        </div>
+        <div>
+            <label for="kilometers">Kilometers:</label>
+            <input type="number" id="kilometers" name="kilometers" ngModel>
+        </div>
+        <div>
+            <label for="tollgate">Tollgate:</label>
+            <input type="number" id="tollgate" name="tollgate" ngModel>
+        </div>
+        <div>
+            <label for="driverBeta">Driver Beta:</label>
+            <input type="number" id="driverBeta" name="driverBeta" ngModel>
+        </div> -->
+        <!-- <div>
+            <label>GST (12% on Bus Rent):</label> -->
+            <!-- <span>{{ billingForm.value.busRent ? (billingForm.value.busRent * 0.12) : 0 | number:'1.2-2' }}</span> -->
+        <!-- </div> -->
+        <!-- <div>
+            <label>Total:</label>
+            <span> -->
+                <!-- {{
+                    (billingForm.value.busRent ? +billingForm.value.busRent : 0) +
+                    (billingForm.value.busRent ? billingForm.value.busRent * 0.12 : 0) +
+                    (billingForm.value.dieselCharges ? +billingForm.value.dieselCharges : 0) +
+                    (billingForm.value.tollgate ? +billingForm.value.tollgate : 0) +
+                    (billingForm.value.driverBeta ? +billingForm.value.driverBeta : 0)
+                | number:'1.2-2' }} -->
+            <!-- </span>
+        </div> -->
+        <!-- <button type="submit" [disabled]="!billingForm.valid">Submit</button> -->
+        <button type="submit" >Submit</button>
+
+    <!-- </form> -->
+</div>
